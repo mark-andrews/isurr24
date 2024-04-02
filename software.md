@@ -9,6 +9,7 @@ There are three main pieces of software to install:
     environment for using R.
 -   [tidyverse](https://www.tidyverse.org/): A bundle of R packages to
     use R the modern way.
+-   Some other R packages.
 
 ## Installing R
 
@@ -55,3 +56,17 @@ install.packages("tidyverse")
 ```
 
 The main packages that are contained within the [tidyverse](https://www.tidyverse.org/) bundle are listed [here](https://www.tidyverse.org/packages/).
+
+
+## Installing other R packages
+
+We can use `install.packages` to install other R packages.
+A few packages that we may use in this course are `afex`, `emmeans`, `psyntur`, `car`.
+These can be installed as follows:
+
+```r
+# create a vector of package names
+packages_to_install <- c("afex", "emmeans", "psyntur", "car")
+# install these packages with install.packages
+install.packages(packages_to_install)
+```
