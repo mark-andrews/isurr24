@@ -61,12 +61,12 @@ The main packages that are contained within the [tidyverse](https://www.tidyvers
 ## Installing other R packages
 
 We can use `install.packages` to install other R packages.
-A few packages that we may use in this course are `afex`, `emmeans`, `psyntur`, `car`.
+A few packages that we may use in this course are `afex`, `emmeans`, `psyntur`, `car`, `skimr`.
 These can be installed as follows:
 
 ```r
 # create a vector of package names
-packages_to_install <- c("afex", "emmeans", "psyntur", "car")
+packages_to_install <- c("afex", "emmeans", "psyntur", "car", "skimr")
 # install these packages with install.packages
 install.packages(packages_to_install)
 ```
