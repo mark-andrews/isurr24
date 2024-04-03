@@ -1,3 +1,6 @@
+# A script that reads in data files and does some data wrangling.
+
+
 # Load up my packages -----------------------------------------------------
 
 library(tidyverse) # loads up the tidyverse package 
