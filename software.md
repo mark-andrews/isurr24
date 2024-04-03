@@ -66,7 +66,7 @@ These can be installed as follows:
 
 ```r
 # create a vector of package names
-packages_to_install <- c("afex", "emmeans", "psyntur", "car", "skimr")
+packages_to_install <- c("afex", "emmeans", "psyntur", "car", "skimr", "readxl")
 # install these packages with install.packages
 install.packages(packages_to_install)
 ```
