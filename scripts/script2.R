@@ -23,6 +23,10 @@ skim(weight_df)
 # Read in an Excel --------------------------------------------------------
 
 era_df <- read_excel('data/ERA_DATA_ALL.xlsx', sheet = 'Channel_Averages_by_Category')
+# same as previous command because "Channel_Averages_by_Category" is first sheet
+era_df <- read_excel('data/ERA_DATA_ALL.xlsx')
+
+# reads in another sheet
 era_df2 <- read_excel('data/ERA_DATA_ALL.xlsx', sheet = 'Channel Information')
 
 
@@ -30,10 +34,8 @@ era_df2 <- read_excel('data/ERA_DATA_ALL.xlsx', sheet = 'Channel Information')
 
 blp_df <- read_csv('data/blp-trials-short.txt')
 
-# selecting columns with select -------------------------------------------
+# Selecting columns with select -------------------------------------------
 
-
-# select subset of colums
 select(blp_df, participant, spell, rt)
 select(blp_df, lex:rt)
 select(blp_df, participant, resp:rt.raw)
@@ -49,9 +51,7 @@ select(blp_df, matches('^rt'))     # starts with 'rt'
 select(blp_df, matches('rt$'))     # ends with 'rt'
 select(blp_df, matches('^rt|rt$')) # begins with or ends with 'rt'
 
-
-
-# filtering rows with filter ----------------------------------------------
+# Filtering rows with filter ----------------------------------------------
 
 filter(blp_df, lex == 'W') # select all rows where lex is equal to 'W'
 
