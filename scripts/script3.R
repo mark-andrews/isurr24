@@ -2,7 +2,10 @@
 # Load packages -----------------------------------------------------------
 
 library(tidyverse)
-
+library(afex)
+library(emmeans)
+library(skimr)
+library(effectsize)
 
 # Load data ---------------------------------------------------------------
 
@@ -68,3 +71,77 @@ weight_male_df2 <- mutate(weight_male_df, norm_height = height - mean(height))
 
 result_8 <- lm(weight ~ norm_height, data = weight_male_df2)
 summary(result_8)
+
+# One way Anova -----------------------------------------------------------
+
+laptop_df <- as_tibble(laptop_urry)
+skim(laptop_df)
+
+ggplot(laptop_df, aes(x = talk, y = overall)) + geom_boxplot()
+
+result_9 <- aov(overall ~ talk, data = laptop_df)
+summary(result_9)
+
+# F(4, 137) = 7.425, p = 0.0000192
+
+# effect sizes
+eta_squared(result_9, partial = FALSE)
+cohens_f(result_9)
+
+emmeans(result_9, specs = pairwise ~ talk, adjust = 'bonf')
+
+# Factorial ANOVA ---------------------------------------------------------
+
+ggplot(laptop_df, 
+       aes(x = talk, y = overall, fill = condition)) + 
+  geom_boxplot()
+
+
+result_10 <- aov(overall ~ talk * condition, 
+                 data = laptop_df)
+result_10a <- aov(overall ~ talk + condition + talk:condition, 
+                  data = laptop_df)
+
+summary(result_10)
+
+# oneway anova with condition as IV
+result_11 <- aov(overall ~ condition, data = laptop_df)
+
+ggplot(laptop_df, 
+       aes(x = condition, y = overall)) + 
+  geom_boxplot()
+
+eta_squared(result_10)
+cohens_f(result_10)
+
+emmeans(result_10, specs = pairwise ~ talk | condition)
+emmeans(result_10, specs = pairwise ~ condition | talk)
+
+
+# Multiple linear regression ----------------------------------------------
+
+result_12 <- lm(weight ~ height + age, data = weight_df)
+
+summary(result_12)
+
+# null model
+result_13 <- lm(weight ~ 1, data = weight_df)
+
+# model comparison
+anova(result_13, result_12) # comparing the null model with model 12
+
+
+result_14 <- lm(weight ~ height + age + gender, data = weight_df)
+
+# re code the gender variable as numeric 0 and 1
+# where 1 is for Male and 0 is for female
+mutate(weight_df, gender = if_else(gender == 'Male', 1, 0))
+
+# repeated measures Anova -------------------------------------------------
+
+self_esteem <- read_csv("https://raw.githubusercontent.com/mark-andrews/ntupsychology-data/main/data-sets/selfesteem_long.csv")
+
+result_15 <- aov_car(esteem ~ Error(id/time), data = self_esteem)
+summary(result_15)
+
+emmeans(result_15, specs = pairwise ~ time, adjust = 'bonf')
